@@ -1,6 +1,6 @@
 import { Button, Col, Divider, Modal, Row, Select, message } from 'antd';
 import axios from 'axios';
-// import './styleContent.css';
+import './styleContent.css';
 
 import React, { useEffect, useState } from 'react';
 
@@ -30,13 +30,25 @@ const ContentElement = () => {
   };
 
   const handleGetWinner = () => {
+    const listNumberEmployeeId = document.querySelectorAll('.item');
+    listNumberEmployeeId.forEach((item) => {
+      item.classList.remove('appear');
+    });
+
     const employeeRandom =
       employeeData[Math.floor(Math.random() * employeeData.length)];
     setWinnerId(Array.from(employeeRandom.employeeID));
     setEmployeeWinner(employeeRandom);
+
+    listNumberEmployeeId.forEach((item, index) => {
+      setTimeout(() => {
+        console.log(index);
+        item.classList.add('appear');
+      }, (index + 1) * 1500);
+    });
     setTimeout(() => {
       setIsModalOpen(true);
-    }, 1000);
+    }, 9500);
   };
 
   const handleReset = () => {
@@ -162,9 +174,8 @@ const ContentElement = () => {
                   fontSize: '3rem',
                   marginTop: '30px',
                   fontWeight: 600,
-                  transitionDelay: `${index * 0.1}s`,
                 }}
-                // className='item'
+                className='item appear'
               >
                 {item}
               </div>
